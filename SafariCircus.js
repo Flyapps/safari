@@ -3249,26 +3249,37 @@ co.doubleduck.Menu.prototype = $extend(co.doubleduck.BaseMenu.prototype,{
 		this._barMask = null;
 	}
 	,handlePlayClick: function() {
-		if(!this._active) return;
-		if(this._themeMusic != null) this._themeMusic.stop();
-		this._active = false;
-		this._play.mouseEnabled = false;
-		this.removeTweensFromAllChildren(this);
-		if(this.onPlayClick != null) {
-			if(this._unlocks != null) {
-				createjs.Tween.removeTweens(this._unlocks);
-				createjs.Tween.get(this._unlocks).to({ alpha : 0},1000);
-			}
-			createjs.Tween.get(this._background).to({ alpha : 0},1000);
-			createjs.Tween.get(this._title).to({ alpha : 0},1000);
-			createjs.Tween.get(this._play).to({ alpha : 0},1000);
-			createjs.Tween.get(this._helpButton).to({ alpha : 0},1000);
-			createjs.Tween.get(this._muteButton).to({ alpha : 0},1000);
-			createjs.Tween.get(this._best).to({ alpha : 0},1000);
-			if(this._oldPointLabel != null) createjs.Tween.get(this._oldPointLabel).to({ alpha : 0},1000);
-			createjs.Tween.get(this._barContainer).to({ alpha : 0},1000).call(this.onPlayClick);
-			if(this._newBestNotification != null) createjs.Tween.get(this._newBestNotification).to({ alpha : 0},1000);
+	  var self = this;
+	  function startPlay() {
+  		if(!self._active) return;
+  		if(self._themeMusic != null) self._themeMusic.stop();
+  		self._active = false;
+  		self._play.mouseEnabled = false;
+  		self.removeTweensFromAllChildren(self);
+  		if(self.onPlayClick != null) {
+  			if(self._unlocks != null) {
+  				createjs.Tween.removeTweens(self._unlocks);
+  				createjs.Tween.get(self._unlocks).to({ alpha : 0},1000);
+  			}
+  			createjs.Tween.get(self._background).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._title).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._play).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._helpButton).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._muteButton).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._best).to({ alpha : 0},1000);
+  			if(self._oldPointLabel != null) createjs.Tween.get(self._oldPointLabel).to({ alpha : 0},1000);
+  			createjs.Tween.get(self._barContainer).to({ alpha : 0},1000).call(self.onPlayClick);
+  			if(self._newBestNotification != null) createjs.Tween.get(self._newBestNotification).to({ alpha : 0},1000);
+  		}
 		}
+		
+    if (window.InAppOffer) {
+      new window.InAppOffer({
+        "onRemove": startPlay
+      });
+    } else {
+      startPlay();
+    }
 	}
 	,removeTweensFromAllChildren: function(container) {
 		createjs.Tween.removeTweens(container);

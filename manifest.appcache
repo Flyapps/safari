@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# V1.01
+# V1.06
 NETWORK:
 *
 CACHE:
@@ -168,7 +168,6 @@ images/splash/tap2play.png
 data/AnimalDB.js
 data/BGDataDB.js
 data/LevelDB.js
-createjs/.DS_Store
 createjs/easeljs-0.5.0.min.js
 createjs/preloadjs-0.3.0.min.js
 createjs/soundjs-0.3.0.min.js
